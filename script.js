@@ -11,7 +11,6 @@ function createPlayer(name){
     // ^array or plain value?
     const addToken = (positionX, positionY) => playerToken.push(positionX,positionY);
 
-
     return {name, playerToken, addToken}
 }
 
@@ -26,14 +25,24 @@ function createBtn(btnNumber, positionX, positionY){
     
 }
 
-// ----------------------------------
-// something btn onclick => btn.playerMove()???
 
-// function playerMove(player) {
-//     TicTacToe.Mark(player.name,0);
-//     player.addToken('L', 'U');
-//     // gameOver fx
-// }
+// ------------------
+
+function mostFrequent(player) {
+  return Array.from(new Set(player.playerToken)).reduce((prev, curr) =>
+  player.playerToken.filter(el => el === curr).length > player.playerToken.filter(el => el === prev).length ? curr : prev
+);
+}
+
+const diagonal1 = ['UL','MM', 'BR'];
+const diagonal2 = ['UR', 'MM', 'BL'];
+function diagonalWinCon(player, pattern) {return pattern.every(i => player.playerToken.includes(i))};
+
+if (player.playerToken.filter((word) => word==mostFrequent(player)).length > 2 ||diagonalWinCon(player, diagonal1)||diagonalWinCon(player, diagonal2)){return 'winner!'}
+let arr = ['L', 'U', 'L', 'L', 'U', 'L', 'LU', 'UL']
+
+// ------------------
+
 
 
 
@@ -42,4 +51,4 @@ const player1 = createPlayer('x');
 const btn0 = createBtn('0', 'L', 'U');
 btn0.playerMove(player1);
 console.log(TicTacToe.gameState);
-console.log(player1);
+console.log(player1); 
